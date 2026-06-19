@@ -194,7 +194,6 @@ Addin packed and deployed to AddIns directory
 | 服务 | Base URL | 模型名称示例 |
 |------|----------|-------------|
 | Anthropic (官方) | 留空 | claude-sonnet-4-6 |
-| 小米 MiMo | https://token-plan-cn.xiaomimimo.com/anthropic | mimo-v2.5-pro |
 | 其他兼容服务 | 对应的 API 地址 | 对应的模型名 |
 
 ### 第五步：启动使用
