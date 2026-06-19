@@ -1,0 +1,106 @@
+<ArcGIS defaultAssembly="ArcGISProAddin.dll"
+         defaultNamespace="ArcGISProAddin"
+         xmlns="http://schemas.esri.com/DADF/Registry"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{3e8d2f1a-4b5c-4d6e-8f7a-9b0c1d2e3f4a}"
+             version="1.0.0"
+             desktopVersion="3.0.0.36057">
+    <Name>ArcGIS Pro AI Assistant</Name>
+    <Description>MCP AI assistant for ArcGIS Pro with chat and workflow panes.</Description>
+    <Author>MCP ArcGIS</Author>
+    <Company>MCP ArcGIS</Company>
+    <Date>06/18/2026</Date>
+    <Subject>GIS;AI;MCP</Subject>
+  </AddInInfo>
+
+  <modules>
+    <insertModule id="ArcGISProAddin_Module"
+                  className="Module1"
+                  autoLoad="true"
+                  caption="AI Assistant Module">
+      <tabs>
+        <tab id="ArcGISProAddin_Tab"
+             caption="AI Assistant"
+             keytip="AI"
+             insert="before"
+             placeWith="esri_core_insertTab">
+          <group refID="ArcGISProAddin_Group_Chat"/>
+          <group refID="ArcGISProAddin_Group_Workflow"/>
+        </tab>
+      </tabs>
+
+      <groups>
+        <group id="ArcGISProAddin_Group_Chat"
+               caption="Chat"
+               keytip="C">
+          <button refID="ArcGISProAddin_ShowAIChatPane"
+                  size="large"/>
+          <button refID="ArcGISProAddin_ShowSettings"
+                  size="small"/>
+        </group>
+        <group id="ArcGISProAddin_Group_Workflow"
+               caption="Workflow"
+               keytip="W">
+          <button refID="ArcGISProAddin_ShowWorkflowPane"
+                  size="large"/>
+        </group>
+      </groups>
+
+      <controls>
+        <button id="ArcGISProAddin_ShowAIChatPane"
+                caption="AI Chat"
+                className="ShowAIChatPaneButton"
+                loadOnClick="true"
+                smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue16.png"
+                largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue32.png">
+          <tooltip heading="Open AI Chat">
+            Open the AI chat pane and run GIS tasks.
+          </tooltip>
+        </button>
+
+        <button id="ArcGISProAddin_ShowSettings"
+                caption="AI Settings"
+                className="ShowSettingsButton"
+                loadOnClick="true"
+                smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGray16.png"
+                largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGray32.png">
+          <tooltip heading="AI Settings">
+            Configure API key and model settings.
+          </tooltip>
+        </button>
+
+        <button id="ArcGISProAddin_ShowWorkflowPane"
+                caption="Workflow Pane"
+                className="ShowWorkflowPaneButton"
+                loadOnClick="true"
+                smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGreen16.png"
+                largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGreen32.png">
+          <tooltip heading="Open Workflow Pane">
+            View and run AI-generated workflows.
+          </tooltip>
+        </button>
+      </controls>
+
+      <dockPanes>
+        <dockPane id="ArcGISProAddin_AIChatDockPane"
+                  caption="AI Chat Assistant"
+                  className="AIChatDockPaneViewModel"
+                  dock="right"
+                  dockWith="esri_core_contentsDockPane">
+          <content className="AIChatDockPane"/>
+          <geometry xmin="0" ymin="0" xmax="400" ymax="700"/>
+        </dockPane>
+
+        <dockPane id="ArcGISProAddin_WorkflowDockPane"
+                  caption="AI Workflow"
+                  className="WorkflowDockPaneViewModel"
+                  dock="group"
+                  dockWith="ArcGISProAddin_AIChatDockPane">
+          <content className="WorkflowDockPane"/>
+          <geometry xmin="0" ymin="0" xmax="400" ymax="700"/>
+        </dockPane>
+      </dockPanes>
+    </insertModule>
+  </modules>
+</ArcGIS>

@@ -1,0 +1,88 @@
+<Window x:Class="ArcGISProAddin.ParameterEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ArcGISProAddin"
+        Title="{Binding Title}" Height="500" Width="520"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E1E" ResizeMode="CanResizeWithGrip">
+
+  <Window.Resources>
+    <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisConverter"/>
+    <local:ErrorBorderBrushConverter x:Key="ErrorBorderConverter"/>
+  </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="{Binding StepName}" FontSize="15" FontWeight="Bold"
+                       Foreground="#E8E8E8"/>
+            <TextBlock Text="{Binding ToolPath}" FontSize="11" Foreground="#666"
+                       FontFamily="Consolas" Margin="0,4,0,0"/>
+            <TextBlock Text="{Binding Description}" FontSize="11" Foreground="#AAAAAA"
+                       TextWrapping="Wrap" Margin="0,4,0,0"/>
+            <Separator Background="#3F3F46" Margin="0,8,0,0"/>
+        </StackPanel>
+
+        <!-- Parameter fields -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Parameters}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Label -->
+                            <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="0,4,8,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DisplayName}"
+                                               FontSize="12" Foreground="#CCCCCC"
+                                               TextWrapping="Wrap"/>
+                                    <TextBlock Text=" *" Foreground="#F14C4C"
+                                               Visibility="{Binding IsRequired, Converter={StaticResource BoolToVisConverter}}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding TypeHint}" FontSize="10"
+                                           Foreground="#666" Margin="0,2,0,0"/>
+                            </StackPanel>
+
+                            <!-- Value input: dropdown for filter, else textbox -->
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding FilterOptions}"
+                                      SelectedItem="{Binding Value, Mode=TwoWay}"
+                                      Background="#2D2D30" Foreground="#9CDCFE"
+                                      BorderBrush="#555"
+                                      Visibility="{Binding HasFilter, Converter={StaticResource BoolToVisConverter}}"/>
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="#2D2D30" Foreground="#9CDCFE"
+                                     BorderBrush="{Binding HasError, Converter={StaticResource ErrorBorderConverter}}"
+                                     Padding="6,4" FontFamily="Consolas" FontSize="11"
+                                     Visibility="{Binding HasFilter, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Footer buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="取消" Click="OnCancel"
+                    Background="#3C3C3C" Foreground="#CCCCCC"
+                    BorderBrush="#555" Padding="16,6" Margin="8,0,0,0"
+                    Cursor="Hand"/>
+            <Button Content="确认修改" Click="OnConfirm"
+                    Background="#0E639C" Foreground="White"
+                    BorderBrush="#0E639C" Padding="16,6" Margin="8,0,0,0"
+                    Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

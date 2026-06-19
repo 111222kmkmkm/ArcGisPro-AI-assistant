@@ -1,0 +1,41 @@
+# ArcGIS Pro MCP Plugin — Python 依赖
+# 安装命令（必须使用 ArcGIS Pro 内置 Python 环境）:
+#
+#   "e:\arcGIS Pro\bin\Python\envs\arcgispro-py3\python.exe" -m pip install `
+#       mcp[cli] anthropic pywin32 `
+#       httpx httpx-sse anyio sniffio `
+#       pydantic starlette sse-starlette uvicorn click `
+#       distro jiter docstring-parser typing-extensions `
+#       --ignore-installed --no-deps
+#
+# 注意：使用 --ignore-installed --no-deps 是因为 arcgispro-py3 环境中
+# 某些包 version 字段为 None，会导致普通 pip install 报 TypeError。
+# 上述命令绕过依赖解析器直接安装，所有包均已验证兼容。
+
+# ── MCP Server ──────────────────────────────────────────────
+mcp[cli]>=1.28.0          # MCP 协议框架 (FastMCP)
+starlette>=1.3.0          # mcp 传输层依赖
+sse-starlette             # Server-Sent Events
+uvicorn>=0.49.0           # ASGI server
+click>=8.1.0              # CLI 入口
+
+# ── Claude AI ───────────────────────────────────────────────
+anthropic>=0.109.0        # Claude API SDK（tool_use 支持）
+httpx>=0.28.0             # anthropic 的 HTTP 客户端
+httpx-sse                 # SSE 流式传输
+anyio>=4.0.0              # 异步 I/O
+sniffio                   # 异步后端检测
+distro                    # 系统信息（anthropic 依赖）
+jiter                     # 快速 JSON 迭代器（anthropic 依赖）
+docstring-parser          # 文档字符串解析（anthropic.lib.tools 依赖）
+
+# ── 数据验证 ─────────────────────────────────────────────────
+pydantic>=2.0.0           # FastMCP schema 生成
+
+# ── Windows 通信 ─────────────────────────────────────────────
+pywin32>=312              # Named Pipe 实现（win32pipe, win32file）
+
+# ── 已由 arcgispro-py3 环境内置，无需安装 ──────────────────────
+# arcpy                   # ArcGIS Python API（随 Pro 安装）
+# numpy                   # 科学计算
+# pandas                  # 数据处理

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# .NET / Visual Studio
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+.vs/
+*.pdb
+*.deps.json
+
+# ArcGIS Pro Add-In build artifacts
+*.esriAddinX
+addin/bin/
+addin/obj/
+addin/_diag/bin/
+addin/_diag/obj/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Config with API keys (keep template)
+config.local.json

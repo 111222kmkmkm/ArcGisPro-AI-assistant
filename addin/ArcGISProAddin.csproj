@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>ArcGISProAddin</AssemblyName>
+    <RootNamespace>ArcGISProAddin</RootNamespace>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <ArcGISProBin>E:\arcGIS Pro\bin</ArcGISProBin>
+  </PropertyGroup>
+
+  <!-- 直接引用本地 ArcGIS Pro DLL -->
+  <ItemGroup>
+    <Reference Include="ArcGIS.Core">
+      <HintPath>$(ArcGISProBin)\ArcGIS.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ArcGIS.CoreHost">
+      <HintPath>$(ArcGISProBin)\ArcGIS.CoreHost.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ArcGIS.Desktop.Framework">
+      <HintPath>$(ArcGISProBin)\ArcGIS.Desktop.Framework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ArcGIS.Desktop.Core">
+      <HintPath>$(ArcGISProBin)\Extensions\Core\ArcGIS.Desktop.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ArcGIS.Desktop.Mapping">
+      <HintPath>$(ArcGISProBin)\Extensions\Mapping\ArcGIS.Desktop.Mapping.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config.daml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PackAndDeployAddin" AfterTargets="Build">
+    <Exec Command="powershell.exe -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\_diag\pack.ps1&quot; &amp;&amp; copy /Y &quot;$(MSBuildProjectDirectory)\ArcGISProAddin.esriAddinX&quot; &quot;$(USERPROFILE)\Documents\ArcGIS\AddIns\ArcGISPro\{3e8d2f1a-4b5c-4d6e-8f7a-9b0c1d2e3f4a}\&quot;" />
+    <Message Importance="high" Text="Addin packed and deployed to AddIns directory" />
+  </Target>
+</Project>
