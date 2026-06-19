@@ -13,6 +13,8 @@
 - 连接文件夹功能，AI 可直接读取文件夹中的数据
 - 自动获取当前工作空间和内容窗格图层信息
 - 支持多种 AI 模型（Claude、MiMo 等兼容 Anthropic API 的模型）
+- <img width="524" height="1224" alt="屏幕截图 2026-06-19 153155" src="https://github.com/user-attachments/assets/7adc0609-66ce-4e8d-9f24-08f289d0406d" />
+
 
 ### 工作流引擎
 - AI 自动生成分析步骤链，可视化显示在工作流面板
@@ -21,6 +23,8 @@
 - 实时状态更新（灰色=待执行，蓝色=执行中，绿色=成功，红色=失败）
 - 执行失败时 AI 自动分析错误并重试（最多 5 次）
 - 执行成功后自动将输出图层添加到地图
+- <img width="524" height="1233" alt="屏幕截图 2026-06-19 153201" src="https://github.com/user-attachments/assets/661be0ce-7e00-4f4d-8794-43c7d0d67aad" />
+
 
 ### 支持的 GIS 工具（50+）
 
